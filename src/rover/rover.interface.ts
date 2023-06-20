@@ -1,8 +1,8 @@
-import {EtatRover} from "./etatRover.ts";
+import {Rover} from "./rover.ts";
 
 export interface RoverInterface {
-    TourneADroite() : EtatRover;
-    TourneAGauche(): EtatRover;
-    Avancer() : EtatRover;
-    Reculer(): EtatRover;
+    TourneADroite() : Rover;
+    TourneAGauche(): Rover;
+    Avancer() : Rover;
+    Reculer(): Rover;
 }

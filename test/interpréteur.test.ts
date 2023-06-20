@@ -1,13 +1,10 @@
 import {RoverBuilder} from "./utilities/rover.builder";
 import {InterpréteurRover} from "../src/rover/interpréteurRover";
 import {CartesianData} from "./utilities/cartesianData";
-import {Position} from "../src/geometrie/position";
-import {PlanèteInfinie} from "./utilities/planèteInfinie";
-import {Point} from "../src/geometrie/point";
-import {OrientationInterface} from "../src/topologie/orientation";
+import {Orientation} from "../src/topologie/orientations";
 import {TestPrimitives} from "./utilities/testPrimitives";
-import {EtatRover} from "../src/rover/etatRover";
 import {générerCombinaisons} from "./utilities/combinatoire";
+import {PositionBuilder} from "./utilities/position.builder";
 const each = require("jest-each").default;
 
 const latitudesDépart = [0, 1];
@@ -35,16 +32,18 @@ describe('FEATURE Interpréteur', () => {
         "QUAND on lui envoie 'A' " +
         "ALORS le Rover avance",
             (latitude: number, longitude: number) => {
-            const positionDépartCommune = new Position(new Point(latitude, longitude), new PlanèteInfinie());
+            const positionDépartCommune = new PositionBuilder()
+                    .AyantPourCoordonnées(latitude, longitude)
+                    .Build();
 
-            const roverTémoin = new RoverBuilder().AyantPourPosition(positionDépartCommune).Build();
+            let roverTémoin = new RoverBuilder().AyantPourPosition(positionDépartCommune).Build();
             const roverInterprété = new RoverBuilder().AyantPourPosition(positionDépartCommune).Build();
-            const interpréteur = new InterpréteurRover(roverInterprété);
+            let interpréteur = new InterpréteurRover(roverInterprété);
 
-            const résultatCommande = interpréteur.Interpréter("A");
-            const résultatTémoin = roverTémoin.Avancer();
+            interpréteur = interpréteur.Interpréter("A");
+            roverTémoin = roverTémoin.Avancer();
 
-            expect(résultatCommande).toStrictEqual(résultatTémoin);
+            expect(interpréteur).toEqual(new InterpréteurRover(roverTémoin)); // Instanciation obligatoire en raison du systéme d'égalité trop strict de TS
     });
 
     each(new CartesianData(latitudesDépart, longitudesDépart).toTestCases())
@@ -53,16 +52,18 @@ describe('FEATURE Interpréteur', () => {
             "QUAND on lui envoie 'R' " +
             "ALORS le Rover avance",
             (latitude: number, longitude: number) => {
-                const positionDépartCommune = new Position(new Point(latitude, longitude), new PlanèteInfinie());
+                const positionDépartCommune = new PositionBuilder()
+                    .AyantPourCoordonnées(latitude, longitude)
+                    .Build();
 
-                const roverTémoin = new RoverBuilder().AyantPourPosition(positionDépartCommune).Build();
+                let roverTémoin = new RoverBuilder().AyantPourPosition(positionDépartCommune).Build();
                 const roverInterprété = new RoverBuilder().AyantPourPosition(positionDépartCommune).Build();
-                const interpréteur = new InterpréteurRover(roverInterprété);
+                let interpréteur = new InterpréteurRover(roverInterprété);
 
-                const résultatCommande = interpréteur.Interpréter("R");
-                const résultatTémoin = roverTémoin.Reculer();
+                interpréteur = interpréteur.Interpréter("R");
+                roverTémoin = roverTémoin.Reculer();
 
-                expect(résultatCommande).toStrictEqual(résultatTémoin);
+                expect(interpréteur).toEqual(new InterpréteurRover(roverTémoin)); // Instanciation obligatoire en raison du systéme d'égalité trop strict de TS
             });
 
     each(new CartesianData(TestPrimitives.Orientations).toTestCases())
@@ -70,15 +71,15 @@ describe('FEATURE Interpréteur', () => {
             "ET un Rover orienté %s " +
             "QUAND on lui envoie 'D' " +
             "ALORS le Rover tourne à droite",
-            (orientationDépart: OrientationInterface) => {
-                const roverTémoin = new RoverBuilder().AyantPourOrientation(orientationDépart).Build();
+            (orientationDépart: Orientation) => {
+                let roverTémoin = new RoverBuilder().AyantPourOrientation(orientationDépart).Build();
                 const roverInterprété = new RoverBuilder().AyantPourOrientation(orientationDépart).Build();
-                const interpréteur = new InterpréteurRover(roverInterprété);
+                let interpréteur = new InterpréteurRover(roverInterprété);
 
-                const résultatCommande = interpréteur.Interpréter("D");
-                const résultatTémoin = roverTémoin.TourneADroite();
+                interpréteur = interpréteur.Interpréter("D");
+                roverTémoin = roverTémoin.TourneADroite();
 
-                expect(résultatCommande).toStrictEqual(résultatTémoin);
+                expect(interpréteur).toEqual(new InterpréteurRover(roverTémoin)); // Instanciation obligatoire en raison du systéme d'égalité trop strict de TS
             });
 
     each(new CartesianData(TestPrimitives.Orientations).toTestCases())
@@ -86,15 +87,15 @@ describe('FEATURE Interpréteur', () => {
             "ET un Rover orienté %s " +
             "QUAND on lui envoie 'G' " +
             "ALORS le Rover tourne à droite",
-            (orientationDépart: OrientationInterface) => {
-                const roverTémoin = new RoverBuilder().AyantPourOrientation(orientationDépart).Build();
+            (orientationDépart: Orientation) => {
+                let roverTémoin = new RoverBuilder().AyantPourOrientation(orientationDépart).Build();
                 const roverInterprété = new RoverBuilder().AyantPourOrientation(orientationDépart).Build();
-                const interpréteur = new InterpréteurRover(roverInterprété);
+                let interpréteur = new InterpréteurRover(roverInterprété);
 
-                const résultatCommande = interpréteur.Interpréter("G");
-                const résultatTémoin = roverTémoin.TourneAGauche();
+                interpréteur = interpréteur.Interpréter("G");
+                roverTémoin = roverTémoin.TourneAGauche();
 
-                expect(résultatCommande).toStrictEqual(résultatTémoin);
+                expect(interpréteur).toEqual(new InterpréteurRover(roverTémoin)); // Instanciation obligatoire en raison du systéme d'égalité trop strict de TS
             });
 
     each(new CartesianData(["B", "VERFEFEF"]).toTestCases())
@@ -117,8 +118,10 @@ describe('FEATURE Commandes Multiples', () => {
             "ET un Rover orienté %s en position %s, %s " +
             "QUAND on lui envoie plusieurs commandes %s " +
             "ALORS le Rover se comporte comme si chacune avait été envoyée à la suite",
-            (orientation: OrientationInterface, latitude: number, longitude: number, commande: string) => {
-                const positionDépartCommune = new Position(new Point(latitude, longitude), new PlanèteInfinie());
+            (orientation: Orientation, latitude: number, longitude: number, commande: string) => {
+                const positionDépartCommune = new PositionBuilder()
+                    .AyantPourCoordonnées(latitude, longitude)
+                    .Build();
 
                 const configurationCommune = new RoverBuilder()
                     .AyantPourPosition(positionDépartCommune)
@@ -127,17 +130,15 @@ describe('FEATURE Commandes Multiples', () => {
                 const roverTémoin = configurationCommune.Build();
                 const roverTesté = configurationCommune.Build();
 
-                const interpréteurTesté = new InterpréteurRover(roverTesté);
-                const interpréteurTémoin = new InterpréteurRover(roverTémoin);
-
-                let résultatTémoin: EtatRover|undefined = undefined;
+                let interpréteurTesté = new InterpréteurRover(roverTesté);
+                let interpréteurTémoin = new InterpréteurRover(roverTémoin);
 
                 for (const commandeSimple of commande) {
-                    résultatTémoin = interpréteurTémoin.Interpréter(commandeSimple);
+                    interpréteurTémoin = interpréteurTémoin.Interpréter(commandeSimple);
                 }
 
-                const résultatCommande = interpréteurTesté.Interpréter(commande);
+                interpréteurTesté = interpréteurTesté.Interpréter(commande);
 
-                expect(résultatCommande).toStrictEqual(résultatTémoin);
+                expect(interpréteurTesté).toStrictEqual(interpréteurTémoin);
             });
 });

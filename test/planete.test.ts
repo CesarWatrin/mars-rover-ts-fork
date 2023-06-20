@@ -1,10 +1,9 @@
-import {Position} from "../src/geometrie/position";
 import {RoverBuilder} from "./utilities/rover.builder";
 import {PlanèteToroïdale} from "../src/topologie/planeteToroïdale";
 import {CartesianData} from "./utilities/cartesianData";
-import {OrientationInterface} from "../src/topologie/orientation";
+import {Orientation} from "../src/topologie/orientations";
 import {TestPrimitives} from "./utilities/testPrimitives";
-import {Point} from "../src/geometrie/point";
+import {PositionBuilder} from "./utilities/position.builder";
 const each = require("jest-each").default;
 
 const taillesPlanètes = [1, 2, 10];
@@ -17,19 +16,23 @@ describe('FEATURE Planète', () => {
             'ET posé aux coordonnées %s, %s sur une planète de taille %s ' +
             'QUAND il avance suffisamment pour faire le tour de la planète ' +
             'ALORS il est revenu à son point de départ',
-        (orientation: OrientationInterface, latitudeDépart: number, longitudeDépart: number, taille: number) => {
+        (orientation: Orientation, latitudeDépart: number, longitudeDépart: number, taille: number) => {
             const planète = new PlanèteToroïdale(taille);
-            const positionOriginale = new Position(new Point(latitudeDépart, longitudeDépart), planète)
-            const rover = new RoverBuilder()
+
+            const positionOriginale = new PositionBuilder()
+                .AyantPourCoordonnées(latitudeDépart, longitudeDépart)
+                .AyantPourSystèmeDeCoordonnées(planète)
+                .Build();
+
+            let rover = new RoverBuilder()
                 .AyantPourOrientation(orientation)
                 .AyantPourPosition(positionOriginale)
                 .Build();
 
-            let positionRenvoyée = positionOriginale;
             for (let i = 0; i < taille; i++) {
-                positionRenvoyée = rover.Avancer().Position;
+                rover = rover.Avancer();
             }
 
-            expect(positionRenvoyée).toStrictEqual(positionOriginale);
+            expect(rover.Position).toStrictEqual(positionOriginale);
     });
 });

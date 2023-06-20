@@ -1,4 +1,4 @@
-import {Orientation, OrientationInterface} from "../src/topologie/orientation";
+import {Orientations, Orientation} from "../src/topologie/orientations";
 import {RoverBuilder} from "./utilities/rover.builder";
 import {CartesianData} from "./utilities/cartesianData";
 import {PositionBuilder} from "./utilities/position.builder";
@@ -15,21 +15,20 @@ describe('FEATURE Avancement', () => {
     ).it('ETANT DONNE un rover démarrant en %s, %s, orienté %s ' +
         'QUAND il avance puis recule ' +
         'ALORS sa nouvelle position est sa position de départ',
-        (latitudeDépart: number, longitudeDépart: number, orientation: OrientationInterface) => {
+        (latitudeDépart: number, longitudeDépart: number, orientation: Orientation) => {
 
             const positionOriginale = new PositionBuilder()
                 .AyantPourCoordonnées(latitudeDépart, longitudeDépart)
                 .Build();
 
-            const rover = new RoverBuilder()
+            let rover = new RoverBuilder()
                 .AyantPourPosition(positionOriginale)
                 .AyantPourOrientation(orientation)
                 .Build();
 
-            rover.Avancer();
-            const positionFinale = rover.Reculer().Position;
+            rover = rover.Avancer().Reculer();
 
-            expect(positionFinale).toStrictEqual(positionOriginale);
+            expect(rover.Position).toStrictEqual(positionOriginale);
     });
 
 
@@ -39,20 +38,19 @@ describe('FEATURE Avancement', () => {
         'ALORS la composante latitudinale de sa position augmente d\'autant',
         (nombreMouvements: number) => {
             const positionOriginale = PositionBuilder.Origine();
-            const rover = new RoverBuilder()
-                .AyantPourOrientation(Orientation.Nord)
+            let rover = new RoverBuilder()
+                .AyantPourOrientation(Orientations.Nord)
                 .AyantPourPosition(positionOriginale)
                 .Build();
 
             let positionAttendue = positionOriginale;
-            let positionRenvoyée = positionOriginale;
 
             for(let mouvements =0; mouvements < nombreMouvements; mouvements ++){
-                positionAttendue = positionAttendue.IncrémenterLatitude();
-                positionRenvoyée = rover.Avancer().Position;
+                positionAttendue = positionAttendue.IncrémenterLatitudeSaufObstacle();
+                rover = rover.Avancer();
             }
 
-            expect(positionRenvoyée).toStrictEqual(positionAttendue);
+            expect(rover.Position).toStrictEqual(positionAttendue);
         });
 
     each(new CartesianData(nombreMouvements).toTestCases())
@@ -61,20 +59,19 @@ describe('FEATURE Avancement', () => {
         'ALORS la composante latitudinale de sa position diminue d\'autant',
         (nombreMouvements: number) => {
             const positionOriginale = PositionBuilder.Origine();
-            const rover = new RoverBuilder()
-                .AyantPourOrientation(Orientation.Sud)
+            let rover = new RoverBuilder()
+                .AyantPourOrientation(Orientations.Sud)
                 .AyantPourPosition(positionOriginale)
                 .Build();
 
             let positionAttendue = positionOriginale;
-            let positionRenvoyée = positionOriginale;
 
             for(let mouvements =0; mouvements < nombreMouvements; mouvements ++){
-                positionAttendue = positionAttendue.DécrémenterLatitude();
-                positionRenvoyée = rover.Avancer().Position;
+                positionAttendue = positionAttendue.DécrémenterLatitudeSaufObstacle();
+                rover = rover.Avancer();
             }
 
-        expect(positionRenvoyée).toStrictEqual(positionAttendue);
+        expect(rover.Position).toStrictEqual(positionAttendue);
     });
 
     each(new CartesianData(nombreMouvements).toTestCases())
@@ -83,20 +80,18 @@ describe('FEATURE Avancement', () => {
         'ALORS la composante longitudinale de sa position augmente d\'autant',
         (nombreMouvements: number) => {
             const positionOriginale = PositionBuilder.Origine();
-            const rover = new RoverBuilder()
-                .AyantPourOrientation(Orientation.Est)
+            let rover = new RoverBuilder()
+                .AyantPourOrientation(Orientations.Est)
                 .AyantPourPosition(positionOriginale)
                 .Build();
 
             let positionAttendue = positionOriginale;
-            let positionRenvoyée = positionOriginale;
-
             for(let mouvements =0; mouvements < nombreMouvements; mouvements ++){
-                positionAttendue = positionAttendue.IncrémenterLongitude();
-                positionRenvoyée = rover.Avancer().Position;
+                positionAttendue = positionAttendue.IncrémenterLongitudeSaufObstacle();
+                rover = rover.Avancer();
             }
 
-            expect(positionRenvoyée).toStrictEqual(positionAttendue);
+            expect(rover.Position).toStrictEqual(positionAttendue);
         });
 
     each(new CartesianData(nombreMouvements).toTestCases())
@@ -105,19 +100,18 @@ describe('FEATURE Avancement', () => {
         'ALORS la composante longitudinale de sa position diminue d\'autant',
         (nombreMouvements: number) => {
             const positionOriginale = PositionBuilder.Origine();
-            const rover = new RoverBuilder()
-                .AyantPourOrientation(Orientation.Ouest)
+            let rover = new RoverBuilder()
+                .AyantPourOrientation(Orientations.Ouest)
                 .AyantPourPosition(positionOriginale)
                 .Build();
 
             let positionAttendue = positionOriginale;
-            let positionRenvoyée = positionOriginale;
 
             for(let mouvements =0; mouvements < nombreMouvements; mouvements ++){
-                positionAttendue = positionAttendue.DécrémenterLongitude();
-                positionRenvoyée = rover.Avancer().Position;
+                positionAttendue = positionAttendue.DécrémenterLongitudeSaufObstacle();
+                rover = rover.Avancer();
             }
 
-            expect(positionRenvoyée).toStrictEqual(positionAttendue);
+            expect(rover.Position).toStrictEqual(positionAttendue);
         });
 });

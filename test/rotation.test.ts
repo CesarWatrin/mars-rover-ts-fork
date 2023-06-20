@@ -1,24 +1,26 @@
-import {Orientation, OrientationInterface} from "../src/topologie/orientation";
+import {Orientations, Orientation} from "../src/topologie/orientations";
 import {RoverBuilder} from "./utilities/rover.builder";
 const each = require("jest-each").default;
 
 describe('FEATURE Rotation', () => {
     each([
-        [Orientation.Nord, 1, Orientation.Est],
-        [Orientation.Est, 1, Orientation.Sud],
-        [Orientation.Sud, 1, Orientation.Ouest],
-        [Orientation.Ouest, 1, Orientation.Nord],
-        [Orientation.Nord, 2, Orientation.Sud],
-        [Orientation.Est, 2, Orientation.Ouest],
-        [Orientation.Sud, 2, Orientation.Nord],
-        [Orientation.Ouest, 2, Orientation.Est],
+        [Orientations.Nord, 1, Orientations.Est],
+        [Orientations.Est, 1, Orientations.Sud],
+        [Orientations.Sud, 1, Orientations.Ouest],
+        [Orientations.Ouest, 1, Orientations.Nord],
+        [Orientations.Nord, 2, Orientations.Sud],
+        [Orientations.Est, 2, Orientations.Ouest],
+        [Orientations.Sud, 2, Orientations.Nord],
+        [Orientations.Ouest, 2, Orientations.Est],
     ])
         .it('ETANT DONNE un rover orienté %s ' +
         'QUAND il tourne à droite %s fois ' +
-        'ALORS son orientation est %s', (initiale: OrientationInterface, nombreFois: number, finale: Orientation) => {
-        const rover = new RoverBuilder().AyantPourOrientation(initiale).Build();
+        'ALORS son orientation est %s', (initiale: Orientation, nombreFois: number, finale: Orientations) => {
+        const rover = new RoverBuilder()
+            .AyantPourOrientation(initiale)
+            .Build();
 
-        let orientationRover: Orientation = initiale;
+        let orientationRover: Orientations = initiale;
         for (let rotations=0; rotations<nombreFois; rotations++){
             orientationRover = rover.TourneADroite().Orientation;
         }
@@ -27,21 +29,23 @@ describe('FEATURE Rotation', () => {
     });
 
     each([
-        [Orientation.Nord, 1, Orientation.Ouest],
-        [Orientation.Est, 1, Orientation.Nord],
-        [Orientation.Sud, 1, Orientation.Est],
-        [Orientation.Ouest, 1, Orientation.Sud],
-        [Orientation.Nord, 2, Orientation.Sud],
-        [Orientation.Est, 2, Orientation.Ouest],
-        [Orientation.Sud, 2, Orientation.Nord],
-        [Orientation.Ouest, 2, Orientation.Est],
+        [Orientations.Nord, 1, Orientations.Ouest],
+        [Orientations.Est, 1, Orientations.Nord],
+        [Orientations.Sud, 1, Orientations.Est],
+        [Orientations.Ouest, 1, Orientations.Sud],
+        [Orientations.Nord, 2, Orientations.Sud],
+        [Orientations.Est, 2, Orientations.Ouest],
+        [Orientations.Sud, 2, Orientations.Nord],
+        [Orientations.Ouest, 2, Orientations.Est],
     ])
         .it('ETANT DONNE un rover orienté %s ' +
             'QUAND il tourne à gauche %s fois ' +
-            'ALORS son orientation est %s', (initiale: OrientationInterface, nombreFois: number, finale: Orientation) => {
-            const rover = new RoverBuilder().AyantPourOrientation(initiale).Build();
+            'ALORS son orientation est %s', (initiale: Orientation, nombreFois: number, finale: Orientations) => {
+            const rover = new RoverBuilder()
+                .AyantPourOrientation(initiale)
+                .Build();
 
-            let orientationRover: Orientation = initiale;
+            let orientationRover: Orientations = initiale;
             for (let rotations=0; rotations<nombreFois; rotations++){
                 orientationRover = rover.TourneAGauche().Orientation;
             }
