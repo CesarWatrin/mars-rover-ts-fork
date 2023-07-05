@@ -1,6 +1,6 @@
 import { WebSocketServer } from 'ws';
 import { InterpréteurRover } from '../rover/interpréteurRover';
-import { CommandeSimple } from '../rover/commande/CommandeSimple';
+import { CommandeSimple } from '../interpreteur/commande/CommandeSimple';
 import { PositionBuilder } from '../../test/utilities/position.builder';
 import { RoverBuilder } from '../../test/utilities/rover.builder';
 
@@ -19,22 +19,13 @@ wss.on('connection', function connection(ws) {
 
   ws.on('message', function message(data) {
     console.log('received: %s', data);
-    if (data.toString().length === 1) {
-      if (
-        data.toString() === 'A' ||
-        data.toString() == 'R' ||
-        data.toString() == 'D' ||
-        data.toString() == 'G'
-      ) {
-        interpréteur = interpréteur.Interpréter(
-          new CommandeSimple(data.toString())
-        );
-        console.log(interpréteur.getPosition().toString());
-      } else {
-        console.log('commande inconnue');
-      }
-    } else {
-      console.log('suite de commandes non supportée');
+
+    try {
+      interpréteur = interpréteur.Interpréter(
+        new CommandeSimple(data.toString())
+      );
+    } catch (err) {
+      console.log(err);
     }
 
     ws.send(`listening on position ${interpréteur.getPosition().toString()}`);

@@ -1,6 +1,6 @@
 import {Rover} from "./rover.ts";
 import {RoverInterface} from "./rover.interface.ts";
-import {CommandeRover} from "./commande/CommandeRover.ts";
+import {CommandeRover} from "../interpreteur/commande/CommandeRover.ts";
 
 export class InterpréteurRover implements RoverInterface {
     private readonly _rover: RoverInterface;

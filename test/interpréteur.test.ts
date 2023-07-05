@@ -5,8 +5,8 @@ import {Orientation} from "../src/topologie/orientations";
 import {TestPrimitives} from "./utilities/testPrimitives";
 import {générerCombinaisons} from "./utilities/combinatoire";
 import {PositionBuilder} from "./utilities/position.builder";
-import {CommandeSimple} from "../src/rover/commande/CommandeSimple";
-import {CommandeComplexe} from "../src/rover/commande/CommandeComplexe";
+import {CommandeSimple} from "../src/interpreteur/commande/CommandeSimple";
+import {CommandeComplexe} from "../src/interpreteur/commande/CommandeComplexe";
 const each = require("jest-each").default;
 
 const latitudesDépart = [0, 1];
