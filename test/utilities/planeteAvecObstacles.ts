@@ -17,7 +17,7 @@ export class PlanèteAvecObstacles implements Planète {
 
     private EstAccessible(point: Point): boolean {
         const positionNormalisée = this.Normaliser(point);
-        return this._obstacles.includes(positionNormalisée);
+        return !this._obstacles.includes(positionNormalisée);
     }
 
     public Normaliser(position: Point): Point {
@@ -25,8 +25,9 @@ export class PlanèteAvecObstacles implements Planète {
     }
 
     SelonAccessibilité<T>(point: Point, actionSiObstacle: () => T, actionSiLibre: () => T): T {
-        if(this.EstAccessible(point))
-            return actionSiLibre();
+        if (this.EstAccessible(point)) {
+          return actionSiLibre();
+        }
         return actionSiObstacle();
     }
 }

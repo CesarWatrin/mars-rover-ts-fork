@@ -31,4 +31,7 @@ export class InterpréteurRover implements RoverInterface {
     getPosition() {
         return this._rover.getPosition()
     }
+    getOrientation() {
+        return this._rover.getOrientation()
+    }
 }

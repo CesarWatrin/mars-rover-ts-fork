@@ -40,4 +40,10 @@ export class Rover implements RoverInterface {
             this.Orientation,
             this.Position).Position;
     }
+
+    public getOrientation() : Orientation {
+        return new Rover(
+            this.Orientation,
+            this.Position).Orientation;
+    }
 }
