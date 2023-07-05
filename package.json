@@ -6,7 +6,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "jest",
+    "serve": "npx ts-node src/websocket/server.ts",
+    "client": "npx ts-node src/websocket/client.ts"
   },
   "devDependencies": {
     "@types/jest": "^29.5.1",

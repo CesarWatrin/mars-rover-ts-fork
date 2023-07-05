@@ -1,4 +1,4 @@
-import { Position } from "../geometrie/position.ts";
+import { Position } from "../topologie/geometrie/position.ts";
 import {Rover} from "./rover.ts";
 
 export interface RoverInterface {

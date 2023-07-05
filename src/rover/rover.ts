@@ -1,5 +1,5 @@
 import {Orientation} from "../topologie/orientations.ts";
-import {Position} from "../geometrie/position.ts";
+import {Position} from "../topologie/geometrie/position.ts";
 import {RoverInterface} from "./rover.interface.ts";
 
 export class Rover implements RoverInterface {

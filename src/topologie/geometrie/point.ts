@@ -1,4 +1,4 @@
-import {Entier} from "../math/Entier.ts";
+import {Entier} from "../../math/Entier.ts";
 
 export class Point{
     private readonly _latitude: Entier;

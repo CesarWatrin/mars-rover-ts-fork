@@ -1,5 +1,5 @@
 import {Planète} from "../../src/topologie/planète.interface";
-import {Point} from "../../src/geometrie/point";
+import {Point} from "../../src/topologie/geometrie/point";
 
 export class PlanèteInfinieVide implements Planète {
     Normaliser(point: Point): Point {

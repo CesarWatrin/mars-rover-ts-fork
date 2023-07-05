@@ -1,5 +1,5 @@
 import {Planète} from "../../src/topologie/planète.interface";
-import {Point} from "../../src/geometrie/point";
+import {Point} from "../../src/topologie/geometrie/point";
 import {Entier} from "../../src/math/Entier";
 
 export class PlanèteAvecObstacles implements Planète {

@@ -1,5 +1,5 @@
 import {Planète} from "./planète.interface.ts";
-import {Point} from "../geometrie/point.ts";
+import {Point} from "./geometrie/point.ts";
 import {Entier} from "../math/Entier.ts";
 
 export class PlanèteToroïdaleVide implements Planète {
