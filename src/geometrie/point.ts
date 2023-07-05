@@ -31,4 +31,8 @@ export class Point{
     public DécrémenterLongitude() : Point {
         return new Point(this._latitude, this._longitude.Décrémenter());
     }
+
+    public toString(): string {
+        return `long ${this._longitude.toString()} lat ${this._latitude.toString()}`
+    }
 }

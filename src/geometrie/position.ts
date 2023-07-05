@@ -26,6 +26,10 @@ export class Position {
         return this.AllerADestinationSaufObstacle(this._point.DécrémenterLongitude());
     }
 
+    toString() : string {
+        return this._point.toString();
+    }
+
     private AllerADestinationSaufObstacle(pointDestination: Point) : Position{
         const pointFinal = this._planète.SelonAccessibilité(this._point,
             () => this._point,

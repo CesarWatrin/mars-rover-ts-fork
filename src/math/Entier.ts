@@ -31,4 +31,8 @@ export class Entier {
 
         return new Entier(valeurRéduiteNonSignée);
     }
+
+    toString() {
+        return this._valeur.toString()
+    }
 }
