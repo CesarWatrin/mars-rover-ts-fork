@@ -14,7 +14,7 @@ wss.on('connection', function connection(ws) {
   const planète = new PlanèteAvecObstacles(
     new PlanèteToroïdaleVide(new Entier(10))
   );
-  planète.AjouterObstacle(1, 1);
+  planète.AjouterObstacle(3, 3);
 
   const positionDépartCommune = new PositionBuilder()
     .AyantPourCoordonnées(0, 0)

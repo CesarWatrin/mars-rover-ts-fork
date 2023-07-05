@@ -35,4 +35,8 @@ export class Point{
     public toString(): string {
         return `long ${this._longitude.toString()} lat ${this._latitude.toString()}`
     }
+
+    public Equals(other: Point) {
+        return other._latitude.Equals(this._latitude) && other._longitude.Equals(this._longitude);
+    }
 }
