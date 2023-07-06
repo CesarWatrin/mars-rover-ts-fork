@@ -34,4 +34,16 @@ export class RoverWithState implements RoverInterface {
             this.Orientation,
             this.Orientation.FaireReculer(this.Position));
     }
+
+    public getPosition() : Position {
+        return new RoverWithState(
+            this.Orientation,
+            this.Position).Position;
+    }
+
+    public getOrientation() : Orientation {
+        return new RoverWithState(
+            this.Orientation,
+            this.Position).Orientation;
+    }
 }

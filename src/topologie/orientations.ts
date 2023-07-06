@@ -23,11 +23,11 @@ class OrientationNord implements Orientation {
     }
 
     RotationAntihoraire(): Orientation {
-        return Orientations.Est;
+        return Orientations.Ouest;
     }
 
     RotationHoraire(): Orientation {
-        return Orientations.Ouest;
+        return Orientations.Est;
     }
 
     toString(): string {
@@ -50,11 +50,11 @@ class OrientationSud implements Orientation {
     }
 
     RotationAntihoraire(): Orientation {
-        return Orientations.Ouest;
+        return Orientations.Est;
     }
 
     RotationHoraire(): Orientation {
-        return Orientations.Est;
+        return Orientations.Ouest;
     }
 
     toString(): string {
@@ -104,11 +104,11 @@ class OrientationOuest implements Orientation {
     }
 
     RotationAntihoraire(): Orientation {
-        return Orientations.Ouest;
+        return Orientations.Sud;
     }
 
     RotationHoraire(): Orientation {
-        return Orientations.Est;
+        return Orientations.Nord;
     }
 
     toString(): string {

@@ -35,4 +35,12 @@ export class Point{
     public Equals(other: Point) {
         return other._latitude.Equals(this._latitude) && other._longitude.Equals(this._longitude);
     }
+
+    public getLat() {
+        return this._latitude;
+    }
+
+    public getLng() {
+        return this._longitude;
+    }
 }

@@ -28,4 +28,11 @@ export class InterpréteurRover implements RoverInterface {
     TourneAGauche(): RoverWithState {
         return this._rover.TourneAGauche();
     }
+
+    getPosition() {
+        return this._rover.getPosition()
+    }
+    getOrientation() {
+        return this._rover.getOrientation()
+    }
 }

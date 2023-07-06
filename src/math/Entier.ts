@@ -35,4 +35,12 @@ export class Entier {
     public Equals(other: Entier) {
         return this._valeur === other._valeur;
     }
+    
+    getValue() {
+        return this._valeur;
+    }
+
+    toString() {
+        return this._valeur.toString()
+    }
 }

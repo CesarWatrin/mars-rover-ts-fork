@@ -26,9 +26,21 @@ export class Position {
         return this.AllerADestinationSaufObstacle(this._point.DécrémenterLongitude());
     }
 
+    toString() : string {
+        return this._point.toString();
+    }
+
+    getValue() : Point {
+        return this._point;
+    }
+
     private AllerADestinationSaufObstacle(pointDestination: Point) : Position{
-        const pointFinal = this._planète.SelonAccessibilité(this._point,
-            () => this._point,
+        const pointFinal = this._planète.SelonAccessibilité(pointDestination,
+            () => {
+                console.log(`obtacle détécté on lat : ${pointDestination.getLat().toString()}, lng: ${pointDestination.getLng().toString()}`)
+                this._planète.RévélerObstacle(pointDestination)
+                return this._point
+            },
             () => pointDestination
         );
 

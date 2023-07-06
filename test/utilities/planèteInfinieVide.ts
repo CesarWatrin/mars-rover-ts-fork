@@ -9,4 +9,12 @@ export class PlanèteInfinieVide implements Planète {
     SelonAccessibilité<T>(point: Point, actionSiObstacle: () => T, actionSiLibre: () => T): T {
         return actionSiLibre();
     }
+
+    RévélerObstacle(obstacleCoordinates: Point) {
+        return [];
+    }
+
+    getRevealedObstacles() {
+        return [];
+    }
 }
