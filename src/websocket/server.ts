@@ -9,11 +9,17 @@ import { Console } from '../UI/console';
 
 const wss = new WebSocketServer({ port: 8080 });
 const sizePlanete = new Entier(6);
-const planète = new PlaneteBuilder()
-  .DeTaille(sizePlanete.getValue())
-  .AyantUnObstacleAuxCoordonnees(3, 3)
-  .AyantUnObstacleAuxCoordonnees(5, 3)
-  .Build();
+const planèteBuilder = new PlaneteBuilder().DeTaille(sizePlanete.getValue());
+const rndObstaclesAmount =
+  Math.floor(Math.random() * sizePlanete.getValue()) + 1;
+console.log('number of obstacles', rndObstaclesAmount);
+for (let i = 0; i < rndObstaclesAmount; i++) {
+  const latitude = Math.floor(Math.random() * (sizePlanete.getValue() - 1));
+  const longitude = Math.floor(Math.random() * (sizePlanete.getValue() - 1));
+  console.log(`obstalce n°${i + 1} coordinates: ${latitude} ${longitude}`);
+  planèteBuilder.AyantUnObstacleAuxCoordonnees(latitude, longitude);
+}
+const planète = planèteBuilder.Build();
 const consoleDisplay = new Console(sizePlanete, planète.getRevealedObstacles());
 console.log('SERVER STARTED');
 wss.on('connection', function connection(ws) {
@@ -32,8 +38,7 @@ wss.on('connection', function connection(ws) {
   ws.send(consoleDisplay.DisplayMap(false));
 
   ws.on('message', function message(data) {
-    if(data.toString() === "init")
-      ws.send(consoleDisplay.DisplayMap(false));
+    if (data.toString() === 'init') ws.send(consoleDisplay.DisplayMap(false));
     console.log('received: %s', data);
 
     try {

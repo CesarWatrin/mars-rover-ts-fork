@@ -24,7 +24,6 @@ export class Console {
             rover_orientation = rover.getOrientation().toString();
         }
 
-        console.log(this.obstables);
 
         for (let i = this.planete_taille.getValue() - 1; i >= 0; i--) {
             this.map += "\n";
