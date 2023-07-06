@@ -39,11 +39,25 @@ npm run dev
 
 Accessible à l'adresse : http://localhost:5173
 
-## Touches de commande web
+## Commandes
+
+Indication de la position des <b>obstacles</b> au lancement du serveur.
+Les obstacles sont créés <b>aléatoirement</b> à chaque lancement du serveur
+
+![Obstacles](./assets/obstacles.png)
+
+### Web
 
 - `z` : Avancer
 - `s` : Reculer
 - `q` : Tourner à anti-horaire
+- `d` : Tourner à horaire
+
+### Console
+
+- `a` : Avancer
+- `r` : Reculer
+- `g` : Tourner à anti-horaire
 - `d` : Tourner à horaire
 
 ## Captures d'écran et vidéos
