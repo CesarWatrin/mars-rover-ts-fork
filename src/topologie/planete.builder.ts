@@ -28,10 +28,7 @@ export class PlaneteBuilder {
 
   public Build(): Planète {
     let planète: Planète = new PlanèteToroïdaleVide(new Entier(this._taille));
-    for (const obstacle of this._obstacles) {
-      planète = new ObstacleDecorator(planète, obstacle);
-    }
-
+    planète = new ObstacleDecorator(planète, this._obstacles);
     return planète;
   }
 }
@@ -77,11 +74,11 @@ export class PlanèteToroïdaleVide implements Planète {
 
 class ObstacleDecorator implements Planète {
   private readonly _decorated: Planète;
-  private readonly _obstacle: Point;
+  private readonly _obstacles: Point[];
 
-  public constructor(decorated: Planète, obstacle: Point) {
+  public constructor(decorated: Planète, obstacles: Point[]) {
     this._decorated = decorated;
-    this._obstacle = obstacle;
+    this._obstacles = obstacles;
   }
   getRevealedObstacles(): Point[] {
     return this._decorated.getRevealedObstacles();
@@ -89,7 +86,10 @@ class ObstacleDecorator implements Planète {
 
   private EstAccessible(point: Point): boolean {
     const positionNormalisée = this.Normaliser(point);
-    return !positionNormalisée.Equals(this._obstacle);
+    return !this._obstacles.some(
+      (obstacle) =>
+      positionNormalisée.Equals(obstacle)
+    );
   }
 
   public Normaliser(position: Point): Point {
@@ -97,7 +97,7 @@ class ObstacleDecorator implements Planète {
   }
 
   public getObstacles() {
-    return this._obstacle;
+    return this._obstacles;
   }
 
   RévélerObstacle(obstacleCoordinates: Point) {
