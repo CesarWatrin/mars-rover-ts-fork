@@ -4,7 +4,7 @@
 
 - Mathis MARIE-CLAIRE
 - Colin VARANGE
-- César Watrin
+- César WATRIN
 - Maxime DIDIER
 
 ## Installation
@@ -37,6 +37,8 @@ npm run client
 npm run dev
 ```
 
+Accessible à l'adresse : http://localhost:5173
+
 ## Touches de commande web
 
 - `z` : Avancer
@@ -50,7 +52,13 @@ npm run dev
 
 ![Architecture](./assets/architecture.jpg)
 
-### Gameplay
+### Captures vidéos
+
+#### Web
+![Capture Web](./assets/web.gif)
+
+#### Console
+![Capture Console](./assets/console.gif)
 
 
 
